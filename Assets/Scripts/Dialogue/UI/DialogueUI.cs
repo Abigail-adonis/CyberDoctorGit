@@ -61,6 +61,10 @@ public class DialogueUI : MonoBehaviour
     {
         currentPiece = piece;
         StartCoroutine(ShowDialogue(piece));
+        /*if (piece.options != null && piece.options.Count > 0)
+        {
+            ShowOptions(piece.options);
+        }*/
     }
 
     private void ShowOptions(List<DialoguePiece.Option> options)
@@ -83,7 +87,10 @@ public class DialogueUI : MonoBehaviour
     
             // 为按钮添加点击事件监听器
             button.onClick.AddListener(() => OnOptionSelected(option.onSelectEvent));
+            // 添加点击事件监听器
         }
+        // 当选项出现时，暂停游戏
+        Time.timeScale = 0f;
     }
 
     private void OnOptionSelected(UnityEvent onSelectEvent)
@@ -94,6 +101,7 @@ public class DialogueUI : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        Time.timeScale = 1f; // 恢复游戏时间流逝
     }
 
     private IEnumerator ShowDialogue(DialoguePiece piece)

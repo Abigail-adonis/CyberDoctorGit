@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9cae406034f43a5823fd447c50dde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: BigMan
+  npcName: Man
   levelProgress: 0
   affection: 0
 --- !u!212 &408676227
