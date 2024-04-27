@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CyberDoctor.Dialogue;
 
-public static class EventHandler
+public static class DialogueEventHandler
 {
     public static event Action<DialoguePiece> ShowDialogueEvent;
 

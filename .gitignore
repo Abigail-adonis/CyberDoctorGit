@@ -13,4 +13,4 @@ Packages/
 .plastic/
 .vs/
 *.vsconfig
-Assets/Art/
+ignore.conf

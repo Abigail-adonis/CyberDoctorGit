@@ -32,14 +32,14 @@ public class DialogueUI : MonoBehaviour
         {
             Camera.main.gameObject.AddComponent<MouseInput>();
         }
-        EventHandler.ShowDialogueEvent += OnShowDialogueEvent;
+        DialogueEventHandler.ShowDialogueEvent += OnShowDialogueEvent;
         // 订阅鼠标按下事件
         MouseInput.OnMouseDown += OnMouseDown;
     }
 
     private void OnDisable()
     {
-        EventHandler.ShowDialogueEvent -= OnShowDialogueEvent;
+        DialogueEventHandler.ShowDialogueEvent -= OnShowDialogueEvent;
         // 取消订阅鼠标按下事件
         MouseInput.OnMouseDown -= OnMouseDown;
     }

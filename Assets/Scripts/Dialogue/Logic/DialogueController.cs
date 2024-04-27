@@ -94,7 +94,7 @@ namespace CyberDoctor.Dialogue{
                 if (dialogueStack.TryPop(out DialoguePiece result))
                 {
                     // 传到UI显示对话
-                    EventHandler.CallShowDialogueEvent(result);
+                    DialogueEventHandler.CallShowDialogueEvent(result);
                     yield return new WaitUntil(() => result.isDone); // 直到对话结束，isTalking变为false
                     // 检查是否有选项事件
                     if (result.options != null && result.options.Count > 0)
@@ -108,7 +108,7 @@ namespace CyberDoctor.Dialogue{
             }
 
             // 所有对话结束
-            EventHandler.CallShowDialogueEvent(null);
+            DialogueEventHandler.CallShowDialogueEvent(null);
             OnFinishEvent?.Invoke();
             ButtonCanvas.SetActive(true);// 对话结束后，重新使按钮可交互
         }
