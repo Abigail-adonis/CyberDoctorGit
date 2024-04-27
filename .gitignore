@@ -10,3 +10,7 @@ Packages/
 *.userprefs
 *.unityproj
 *.DS_Store
+.plastic/
+.vs/
+*.vsconfig
+Assets/Art/
