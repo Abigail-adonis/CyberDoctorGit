@@ -11,7 +11,7 @@ namespace CyberDoctor.Dialogue{
         public Button button;
         public GameObject ButtonCanvas;
 
-        public UnityEvent OnFinishEvent;
+        //public UnityEvent OnFinishEvent;
 
         private Stack<DialoguePiece> dialogueStack;
 
@@ -20,10 +20,20 @@ namespace CyberDoctor.Dialogue{
 
         private List<string> npcNames = new List<string>
         {
-            "BigMan",
+            //"BigMan",
             "Woman",
-            "Man",
+            //"Man",
         };
+
+        public Teleport teleporter; // Teleport 脚本的引用
+        public UnityEvent OnDialogueFinished; // 对话结束事件
+
+        private void Start()
+        {
+            // 订阅对话结束事件
+            OnDialogueFinished.AddListener(TeleportToNextLevel);
+            EventHandlers.OnOptionSelected += HandleOptionSelection;
+        }
 
         private void OnEnable()
         {
@@ -32,6 +42,13 @@ namespace CyberDoctor.Dialogue{
                 // 使用 GetRandomNPCName 来传递一个随机选择的NPC名字给 OnButtonClick
                 button.onClick.AddListener(() => OnButtonClick(GetRandomNPCName()));
             }
+        }
+
+        private void OnDestroy()
+        {
+            // 取消订阅对话结束事件
+            OnDialogueFinished.RemoveListener(TeleportToNextLevel);
+            EventHandlers.OnOptionSelected -= HandleOptionSelection;
         }
 
         private void OnDisable()
@@ -59,6 +76,14 @@ namespace CyberDoctor.Dialogue{
             return null; // 如果列表为空，返回null
         }
 
+        private void TeleportToNextLevel()
+        {
+            // 假设我们要根据对话结果来决定传送到哪个关卡
+            string levelSceneName = "SampleScene"; // 根据实际对话结果设置关卡名称
+            teleporter.TeleportToLevel(levelSceneName);
+        }
+
+
         public void StartNPCDialogue(string npcName)
         {
             List<DialoguePiece> npcDialogues = NPCManager.Instance.GetNPCDialogues(npcName);
@@ -82,7 +107,34 @@ namespace CyberDoctor.Dialogue{
         {
             if (dialogueStack.Count > 0)
             {
-                StartCoroutine(DialogueRoutine());
+                DialoguePiece nextPiece = dialogueStack.Pop();
+                StartCoroutine(ShowDialogue(nextPiece));  // 显示对话
+            }
+        }
+
+        // 协程来显示对话
+        private IEnumerator ShowDialogue(DialoguePiece piece)
+        {
+            EventHandlers.CallShowDialogueEvent(piece);  // 告知UI显示新的对话内容
+            yield return new WaitUntil(() => piece.isDone);  // 等待对话完成
+
+            // 检查是否有后续对话
+            if (dialogueStack.Count > 0)
+            {
+                StartDialogue();  // 继续下一个对话
+            }
+            else
+            {
+                OnDialogueFinished?.Invoke();  // 所有对话完成
+            }
+        }
+        private void HandleOptionSelection(DialogueOption selectedOption)
+        {
+            if (selectedOption.NextPiece != null)
+            {
+                dialogueStack.Clear();  // 清空当前对话栈
+                dialogueStack.Push(selectedOption.NextPiece);  // 将选中选项的后续对话推入对话栈
+                StartDialogue();  // 开始新的对话
             }
         }
 
@@ -94,22 +146,34 @@ namespace CyberDoctor.Dialogue{
                 if (dialogueStack.TryPop(out DialoguePiece result))
                 {
                     // 传到UI显示对话
-                    EventHandler.CallShowDialogueEvent(result);
+                    EventHandlers.CallShowDialogueEvent(result);
                     yield return new WaitUntil(() => result.isDone); // 直到对话结束，isTalking变为false
                     // 检查是否有选项事件
                     if (result.options != null && result.options.Count > 0)
                     {
-                        // 这里可以添加逻辑来处理选项，例如：
-                        // - 触发一个特定的选项事件
-                        // - 根据玩家选择更改对话流程
+                        // 显示选项并等待玩家做出选择
+                        EventHandlers.CallShowOptionsEvent(result.options);
+                        yield return new WaitUntil(() => result.selectedOption != null); // 等待选择
+        
+                        // 处理选项选择
+                        if (result.selectedOption.action == "ContinueDialogue")
+                        {
+                            continue; // 继续下一轮对话
+                        }
+                        else if (result.selectedOption.action == "Teleport")
+                        {
+                            teleporter.TeleportToLevel(result.selectedOption.levelSceneName);
+                            yield break; // 退出对话协程
+                        }
                     }
                 }
                 isTalking = false;
             }
 
             // 所有对话结束
-            EventHandler.CallShowDialogueEvent(null);
-            OnFinishEvent?.Invoke();
+            EventHandlers.CallShowDialogueEvent(null);
+            //OnFinishEvent?.Invoke();
+            //OnDialogueFinished.Invoke(); // 触发场景跳转事件
             ButtonCanvas.SetActive(true);// 对话结束后，重新使按钮可交互
         }
     }

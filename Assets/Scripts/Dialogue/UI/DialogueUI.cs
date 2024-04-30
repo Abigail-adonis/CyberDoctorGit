@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ public class DialogueUI : MonoBehaviour
     public Transform optionsPanel; // 用于放置选项按钮的面板
 
     private bool shouldListenForClick = false;
-
+    public event Action<DialogueOption> OnOptionSelected;
     private void Awake()
     {
         continueBox.SetActive(false);
@@ -32,15 +33,15 @@ public class DialogueUI : MonoBehaviour
         {
             Camera.main.gameObject.AddComponent<MouseInput>();
         }
-        EventHandler.ShowDialogueEvent += OnShowDialogueEvent;
-        // 订阅鼠标按下事件
+        EventHandlers.ShowDialogueEvent += OnShowDialogueEvent;
+        EventHandlers.OnShowOptionsEvent += ShowOptions; // 添加这行来订阅选项显示事件
         MouseInput.OnMouseDown += OnMouseDown;
     }
 
     private void OnDisable()
     {
-        EventHandler.ShowDialogueEvent -= OnShowDialogueEvent;
-        // 取消订阅鼠标按下事件
+        EventHandlers.ShowDialogueEvent -= OnShowDialogueEvent;
+        EventHandlers.OnShowOptionsEvent -= ShowOptions; // 取消订阅
         MouseInput.OnMouseDown -= OnMouseDown;
     }
     
@@ -48,7 +49,7 @@ public class DialogueUI : MonoBehaviour
     // 鼠标点击事件的处理
     private void OnMouseDown()
     {
-        if (Input.GetMouseButton(0) && shouldListenForClick && currentPiece != null)
+        if (shouldListenForClick && currentPiece != null)
         {
             currentPiece.isDone = true;
             shouldListenForClick = false; // 用户已经点击，不再监听点击
@@ -67,7 +68,7 @@ public class DialogueUI : MonoBehaviour
         }*/
     }
 
-    private void ShowOptions(List<DialoguePiece.Option> options)
+    private void ShowOptions(List<DialogueOption> options)
     {
         // 先清除所有现有的选项按钮
         foreach (Transform child in optionsPanel)
@@ -78,7 +79,7 @@ public class DialogueUI : MonoBehaviour
         // 为每个选项创建一个按钮
         foreach (var option in options)
         {
-            GameObject buttonGO = Instantiate(optionButtonPrefab, optionsPanel.position, Quaternion.identity, optionsPanel);
+            /*GameObject buttonGO = Instantiate(optionButtonPrefab, optionsPanel.position, Quaternion.identity, optionsPanel);
             Button button = buttonGO.GetComponent<Button>();
         
             // 设置按钮的文本
@@ -87,21 +88,32 @@ public class DialogueUI : MonoBehaviour
     
             // 为按钮添加点击事件监听器
             button.onClick.AddListener(() => OnOptionSelected(option.onSelectEvent));
-            // 添加点击事件监听器
+            // 添加点击事件监听器*/
+            GameObject buttonObject = Instantiate(optionButtonPrefab, optionsPanel);
+            buttonObject.GetComponentInChildren<Text>().text = option.text;
+            buttonObject.GetComponent<Button>().onClick.AddListener(() => SelectOption(option));
         }
         // 当选项出现时，暂停游戏
         Time.timeScale = 0f;
     }
 
-    private void OnOptionSelected(UnityEvent onSelectEvent)
+    private void SelectOption(DialogueOption option)
     {
-        onSelectEvent.Invoke();
-        // 隐藏选项按钮
+        currentPiece.selectedOption = option;
+        currentPiece.isDone = true; // 可以标记对话片段为完成，或者根据需要调整逻辑
+    } 
+    private void OptionSelected(DialogueOption option)
+    {
+        ClearOptions();  // 清除所有选项按钮
+        EventHandlers.RaiseOptionSelected(option);  // 触发全局事件
+    }  
+
+    private void ClearOptions()
+    {
         foreach (Transform child in optionsPanel)
         {
-            child.gameObject.SetActive(false);
+            GameObject.Destroy(child.gameObject);
         }
-        Time.timeScale = 1f; // 恢复游戏时间流逝
     }
 
     private IEnumerator ShowDialogue(DialoguePiece piece)
@@ -112,7 +124,7 @@ public class DialogueUI : MonoBehaviour
 
             dialogueBox.SetActive(true);
             continueBox.SetActive(false);
-
+            
             dialogueText.text = string.Empty;
 
             if (piece.name != string.Empty)//名字不为空
@@ -140,8 +152,8 @@ public class DialogueUI : MonoBehaviour
             {
                 faceLeft.gameObject.SetActive(false);
                 faceRight.gameObject.SetActive(false);
-                nameLeft.gameObject.SetActive(false);
-                nameRight.gameObject.SetActive(false);
+                //nameLeft.gameObject.SetActive(false);
+                //nameRight.gameObject.SetActive(false);
             }
             yield return dialogueText.DOText(piece.dialogueText, 1f).WaitForCompletion();//等候显示文字
 

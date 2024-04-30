@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8deb5acad94106d41ae63ce2083c3644, type: 3}
+  m_Name: Heart6
+  m_EditorClassIdentifier: 
+  nameString: Heart6
+  prefab: {fileID: 8748305683944534890, guid: d63d3727d15aa92489e7b36544364c2a, type: 3}
+  visual: {fileID: 9144485600432130183, guid: d0cd0f51141309b40ad08093b98275c2, type: 3}
+  width: 5
+  height: 7
+  points:
+  - {x: 0, y: 5}
+  - {x: 1, y: 1}
+  - {x: 1, y: 4}
+  - {x: 1, y: 5}
+  - {x: 1, y: 6}
+  - {x: 2, y: 0}
+  - {x: 2, y: 1}
+  - {x: 2, y: 2}
+  - {x: 2, y: 3}
+  - {x: 2, y: 4}
+  - {x: 2, y: 5}
+  - {x: 2, y: 6}
+  - {x: 3, y: 1}
+  - {x: 3, y: 2}
+  - {x: 4, y: 2}
+  Str: 0
+  Con: 0
+  Agi: 0
+  Int: 0
+  Men: 0
+  Cha: 0
+  Rct: 0
+  San: 0
+  Price: 0
+  amount: 126
