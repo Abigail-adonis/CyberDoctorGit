@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ModuleE
   m_EditorClassIdentifier: 
   nameString: ModuleE
+  descriptionString: "\u6BCF\u4E2A\u9644\u8FD1\u7684 ModuleE +1 int"
   prefab: {fileID: 8748305683944534890, guid: 74a98aa536d5f854eb50e884a3e7fcd2, type: 3}
   visual: {fileID: 9144485600432130183, guid: deea0f5de7aabd546a71d96cc8eb8f4a, type: 3}
   width: 2

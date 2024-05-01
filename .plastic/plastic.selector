@@ -1,4 +1,0 @@
-repository "Cyber Doctor@haiming_mn@cloud.cn"
-  path "/"
-    br "/main"
-    co "/main"

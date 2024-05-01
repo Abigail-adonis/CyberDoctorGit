@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ModuleC
   m_EditorClassIdentifier: 
   nameString: ModuleC
-  descriptionString: per nearby ModuleB +5 agi
+  descriptionString: "int +2, \u6BCF\u4E2A\u9644\u8FD1\u7684ModuleB +5 agi"
   prefab: {fileID: 4260170597221362991, guid: 69b88780976541b45a56e13a6bc2672d, type: 3}
   visual: {fileID: 3995052740461640792, guid: 79a28d16df00bd1488b60e66fac80d13, type: 3}
   width: 2

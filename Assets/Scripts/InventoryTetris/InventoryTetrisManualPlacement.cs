@@ -50,6 +50,7 @@ public class InventoryTetrisManualPlacement : MonoBehaviour {
             bool tryPlaceItem = inventoryTetris.TryPlaceItem(itemTetrisSO as ItemTetrisSO, placedObjectOrigin, dir);
 
             if (tryPlaceItem) {
+                inventoryTetris.PlayPlacedSuccessAudio();
                 OnObjectPlaced?.Invoke(this, EventArgs.Empty);
             } else {
                 // Cannot build here

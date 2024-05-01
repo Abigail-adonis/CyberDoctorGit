@@ -11,3 +11,6 @@ Packages/
 *.unityproj
 *.DS_Store
 .vs/
+obj/
+.plastic/
+.vsconfig

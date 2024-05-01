@@ -166,6 +166,7 @@ public class InventoryBagUI : MonoBehaviour
                 RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRectTransform.gameObject.SetActive(true);
                 itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
+                    GetComponent<AudioSource>().Play();
                         InventoryTetrisManualPlacement.Instance.ChangeSelectObjectType(item.nameString);
                 };
                 itemSlotRectTransform.GetComponent<Button_UI>().MouseOverOnceTooltipFunc = () => {

@@ -667,7 +667,8 @@
     "agi": 0,
     "rct": 0,
     "cha": 0,
-    "san": 0,
+    "san": 25,
     "price": 0
-  }
+  },
+  "specialRule": "两侧的数值需要相等"
 }

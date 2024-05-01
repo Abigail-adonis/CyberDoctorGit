@@ -11,6 +11,8 @@ public class InventoryTetris : MonoBehaviour {
     public static InventoryTetris Instance { get; private set; }
     [SerializeField] private InventoryBagUI inventoryBagUI;
     [SerializeField] private InspectorUI inspectorUI;
+    public AudioClip placedSuccess;
+    public AudioClip placedFail;
     private InventoryBag inventoryBag;
 
     public event EventHandler<ItemTetrisPlacedObject> OnObjectPlaced;
@@ -154,6 +156,7 @@ public class InventoryTetris : MonoBehaviour {
             // Object Placed!
             return true;
         } else {
+            PlayPlacedFailAudio();
             // Object CANNOT be placed!
             return false;
         }
@@ -204,6 +207,16 @@ public class InventoryTetris : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void PlayPlacedSuccessAudio()
+    {
+        GetComponent<AudioSource>().PlayOneShot(placedSuccess, 0.3f);
+    }
+
+    public void PlayPlacedFailAudio()
+    {
+        GetComponent<AudioSource>().PlayOneShot(placedFail, 0.1f);
     }
 
     public List<Vector2Int> GetNearbyPointList(ItemTetrisPlacedObject placedObject)
@@ -440,6 +453,7 @@ public class InventoryTetris : MonoBehaviour {
         public List<string> nameList;
         public int leveltype;
         public ItemTetrisPlacedObject.ItemAttribute itemAttribute;
+        public string specialRule;
 
     }
 
@@ -514,7 +528,7 @@ public class InventoryTetris : MonoBehaviour {
             san = 0,
             price = 0,
         };
-        string json = JsonUtility.ToJson(new ListAddItemTetrisMap { map = pointList, leveltype = mapType, itemAttribute = attribute ,nameList = addItemTetrisList});
+        string json = JsonUtility.ToJson(new ListAddItemTetrisMap { map = pointList, leveltype = mapType, itemAttribute = attribute ,nameList = addItemTetrisList, specialRule = ""});
         string path = Application.streamingAssetsPath + "/mapData" + saveNum.ToString() + ".json";
         saveJsonNum(++saveNum);
         using (StreamWriter sw = new StreamWriter(path))
@@ -526,12 +540,13 @@ public class InventoryTetris : MonoBehaviour {
         return json;
     }
 
-    public void loadJsonMap(int selectNum,out List<Vector2Int> vector2Ints, out int type, out ItemTetrisPlacedObject.ItemAttribute attribute, out List<string> strings)
+    public void loadJsonMap(int selectNum,out List<Vector2Int> vector2Ints, out int type, out ItemTetrisPlacedObject.ItemAttribute attribute, out List<string> strings, out string rule)
     {
         vector2Ints = new ();
         type = 0;
         attribute = new();
         strings = new List<string>();
+        rule = string.Empty;
         string json;
         string path = Application.streamingAssetsPath + "/mapData" + selectNum.ToString() + ".json";
         if (File.Exists(path))
@@ -549,6 +564,7 @@ public class InventoryTetris : MonoBehaviour {
             type = listAddItemTetris.leveltype;
             attribute = listAddItemTetris.itemAttribute;
             strings = listAddItemTetris.nameList;
+            rule = listAddItemTetris.specialRule;
         }
     }
 }

@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PersistantScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Bar.unity
+    guid: c8b88c99851e14011a402288eea5764e
+  - enabled: 1
+    path: Assets/Scenes/Room.unity
+    guid: eb5a1fb2c0fa444ea837535ced4561c0
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 608caf93f56494515a00938d852a83fe
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c447e0833f0384048afd475ffc2c7ed2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 893290fbaa4984527af85ed994b5699f, type: 2}

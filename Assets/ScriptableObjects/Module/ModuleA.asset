@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ModuleA
   m_EditorClassIdentifier: 
   nameString: ModuleA
+  descriptionString: Agi +10
   prefab: {fileID: 8748305683944534890, guid: bc5de42e942fc184fad68c0f43c23bd4, type: 3}
   visual: {fileID: 9144485600432130183, guid: a60d78c05617b72498badf94c264a0e1, type: 3}
   width: 2

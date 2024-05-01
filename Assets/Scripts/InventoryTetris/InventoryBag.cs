@@ -50,22 +50,6 @@ public class InventoryBag
         {
             AddItemTetrisSO(itemTetrisSO, 0);
         }
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleA,10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleB1, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleB2, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleC, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleE, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleD1, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleD2, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleF1, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.ModuleF2, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart1, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart2, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart3, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart4, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart5, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart6, 10);
-        //AddItemTetrisSO(InventoryTetrisAssets.Instance.Heart7, 10);
     }
 
     public void AddItemTetrisSO(ItemTetrisSO itemTetrisSO, int num)

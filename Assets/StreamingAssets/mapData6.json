@@ -647,11 +647,11 @@
     "str": 0,
     "con": 0,
     "intl": 0,
-    "men": 0,
+    "men": 40,
     "agi": 0,
     "rct": 0,
     "cha": 0,
-    "san": 0,
+    "san": 100,
     "price": 0
   }
 }

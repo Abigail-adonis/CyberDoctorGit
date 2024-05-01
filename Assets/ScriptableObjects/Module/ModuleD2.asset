@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ModuleD2
   m_EditorClassIdentifier: 
   nameString: ModuleD2
-  descriptionString: per nearby ModuleD +1 str
+  descriptionString: "\u6BCF\u9644\u8FD1\u7684ModuleD +1 str"
   prefab: {fileID: 8748305683944534890, guid: 738c9ecd61347cf4ab6c67bdc350a712, type: 3}
   visual: {fileID: 9144485600432130183, guid: 9f63ce2a8e59f9f4bb2a6d187c0af073, type: 3}
   width: 2

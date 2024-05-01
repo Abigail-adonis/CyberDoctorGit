@@ -64,7 +64,7 @@ public class InventoryTetrisDragDropSystem : MonoBehaviour {
             Vector2 anchored = draggingInventoryTetris.GetItemContainer().position;
             Vector2Int placedObjectOrigin = draggingInventoryTetris.GetGridPosition(anchoredPosition);
             placedObjectOrigin = placedObjectOrigin - mouseDragGridPositionOffset;
-            Vector2 targetPosition = anchored + new Vector2( (placedObjectOrigin.x + 0.5f) * draggingInventoryTetris.GetGrid().GetCellSize(), (placedObjectOrigin.y + 0.5f) * draggingInventoryTetris.GetGrid().GetCellSize());
+            Vector2 targetPosition = anchored + new Vector2( (placedObjectOrigin.x + 0.5f) * draggingInventoryTetris.GetGrid().GetCellSize()*gridVisual.lossyScale.x, (placedObjectOrigin.y + 0.5f) * draggingInventoryTetris.GetGrid().GetCellSize() * gridVisual.lossyScale.y);
             gridVisual.position = Vector2.Lerp(gridVisual.position, targetPosition, Time.deltaTime * 15f);
         }
 
@@ -138,6 +138,7 @@ public class InventoryTetrisDragDropSystem : MonoBehaviour {
                 fromInventoryTetris.TryPlaceItem(placedObject.GetItemTetrisSO()  , placedObject.GetGridPosition(), placedObject.GetDir());
             }
         } else {
+            fromInventoryTetris.PlayPlacedFailAudio();
             // Not on top of any Inventory Tetris!
 
             // Cannot drop item here!

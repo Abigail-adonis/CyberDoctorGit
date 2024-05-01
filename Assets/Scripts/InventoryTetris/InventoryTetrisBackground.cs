@@ -36,7 +36,7 @@ public class InventoryTetrisBackground : MonoBehaviour {
         foreach (Vector2Int point in points)
         {   
             Transform child = backgroundGrid.GetChild(point.x + point.y * inventoryTetris.GetGrid().GetWidth() + 1);
-            child.GetComponent<Image>().color = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 0.25f);
+            child.GetComponent<Image>().color = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 0.5f);
         }
 
     }
@@ -48,7 +48,7 @@ public class InventoryTetrisBackground : MonoBehaviour {
             for (int y = 0; y < inventoryTetris.GetGrid().GetHeight(); y++)
             {
                 Transform child = backgroundGrid.GetChild(x + y * inventoryTetris.GetGrid().GetWidth() + 1);
-                child.GetComponent<Image>().color = new UnityEngine.Color (1f,1f,1f,0.25f);
+                child.GetComponent<Image>().color = new UnityEngine.Color (1f,1f,1f,0.5f);
             }
         }
     }

@@ -11,6 +11,8 @@ public class InspectorUI : MonoBehaviour
     private InventoryBag inventoryBag;
     InventoryTetris inventoryTetris;
     private ItemTetrisPlacedObject.ItemAttribute itemAttribute;
+    private ItemTetrisPlacedObject.ItemAttribute itemAttributeCheck;
+    private string rule;
 
     private Transform Str;
     private Transform Con;
@@ -43,23 +45,23 @@ public class InspectorUI : MonoBehaviour
     {
         itemAttribute = inventoryTetris.AttributeSum();
         TextMeshProUGUI uiText = Str.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText(""+itemAttribute.str);
+        uiText.SetText(itemAttribute.str + "/" +itemAttributeCheck.str);
          uiText = Con.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.con);
+        uiText.SetText(itemAttribute.con + "/" + itemAttributeCheck.con);
          uiText = Int.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.intl);
+        uiText.SetText(itemAttribute.intl + "/" + itemAttributeCheck.intl);
         uiText = Men.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.men);
+        uiText.SetText(itemAttribute.men + "/" + itemAttributeCheck.men);
         uiText = Agi.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.agi);
+        uiText.SetText(itemAttribute.agi + "/" + itemAttributeCheck.agi);
         uiText = Rct.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.rct);
+        uiText.SetText(itemAttribute.rct + "/" + itemAttributeCheck.rct);
         uiText = Cha.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.cha);
+        uiText.SetText(itemAttribute.cha + "/" + itemAttributeCheck.cha);
         uiText = San.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.san);
+        uiText.SetText("San: "+itemAttribute.san + "/" + itemAttributeCheck.san);
         uiText = Price.Find("Text").GetComponent<TextMeshProUGUI>();
-        uiText.SetText("" + itemAttribute.price);
+        uiText.SetText(rule);
     }
 
     public void SetInventory(InventoryBag inventoryBag, InventoryTetris inventoryTetris)
@@ -81,6 +83,12 @@ public class InspectorUI : MonoBehaviour
     {
         inventoryTetris.RefreshAllAttribute();
         RefreshInspectorUI();
+    }
+
+    public void SetAttributeCheck(ItemTetrisPlacedObject.ItemAttribute itemAttribute, string rule)
+    {
+        itemAttributeCheck = itemAttribute;
+        this.rule = rule;
     }
 
     // Update is called once per frame
